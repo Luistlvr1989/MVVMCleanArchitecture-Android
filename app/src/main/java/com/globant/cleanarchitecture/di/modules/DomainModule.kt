@@ -14,10 +14,10 @@ class DomainModule {
     @Singleton
     @Provides
     @Background
-    fun providesBackgroundScheduler(): Scheduler = Schedulers.io()
+    fun provideBackgroundScheduler(): Scheduler = Schedulers.io()
 
     @Singleton
     @Provides
     @Foreground
-    fun providesForegroundScheduler(): Scheduler = AndroidSchedulers.mainThread()
+    fun provideForegroundScheduler(): Scheduler = AndroidSchedulers.mainThread()
 }

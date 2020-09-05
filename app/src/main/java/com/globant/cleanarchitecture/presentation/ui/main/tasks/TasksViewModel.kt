@@ -11,10 +11,15 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val getTasksUseCase: GetTasksUseCase
 ) : BaseViewModel() {
+    private val mIsLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = mIsLoading
+
     private val tasks = MutableLiveData<List<TaskEntity>>()
 
     fun getTasks(): LiveData<List<TaskEntity>> = tasks.also {
         getTasksUseCase()
+            .doOnSubscribe { mIsLoading.value = true }
+            .doAfterNext { mIsLoading.value = false }
             .subscribe({
                 tasks.value = it
             }, ::onError)

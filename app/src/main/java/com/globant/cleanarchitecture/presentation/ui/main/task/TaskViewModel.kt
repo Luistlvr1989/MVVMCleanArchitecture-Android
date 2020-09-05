@@ -23,7 +23,7 @@ class TaskViewModel @Inject constructor(
     fun saveTask(task: TaskEntity) {
         saveTaskUseCase(task)
             .doOnSubscribe { mIsLoading.value = true }
-            .doAfterTerminate { mIsLoading.value = false }
+            .doOnTerminate { mIsLoading.value = false }
             .subscribe({
                 mIsCompleted.value = true
             }, {
