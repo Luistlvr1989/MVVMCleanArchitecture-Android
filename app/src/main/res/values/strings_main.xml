@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Tasks -->
+    <string name="text_task_tittle">Title</string>
+    <string name="text_task_description">Description</string>
+    <string name="action_save">Save</string>
+    <string name="error_save">There was an error while saving the task</string>
+
+</resources>
