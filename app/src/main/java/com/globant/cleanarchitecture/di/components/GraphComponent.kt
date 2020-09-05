@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     ApplicationModule::class,
-    //ViewModelModule::class,
+    ViewModelModule::class,
     DomainModule::class,
     DataModule::class,
     LocalModule::class,
@@ -25,5 +25,5 @@ interface GraphComponent {
         fun build(): GraphComponent
     }
 
-    //val viewModelFactory: ViewModelFactory
+    val viewModelFactory: ViewModelFactory
 }

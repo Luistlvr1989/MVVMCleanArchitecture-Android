@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tasksFragment">
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.globant.cleanarchitecture.presentation.ui.main.tasks.TasksFragment"
+        android:label="TasksFragment"
+        tools:layout="@layout/fragment_main_tasks">
+
+        <action
+            android:id="@+id/action_tasks_to_task"
+            app:destination="@id/taskFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.globant.cleanarchitecture.presentation.ui.main.task.TaskFragment"
+        android:label="TaskFragment"
+        tools:layout="@layout/fragment_main_task">
+
+        <argument
+            android:name="task"
+            app:argType="com.globant.cleanarchitecture.domain.entities.TaskEntity" />
+
+    </fragment>
+
+</navigation>

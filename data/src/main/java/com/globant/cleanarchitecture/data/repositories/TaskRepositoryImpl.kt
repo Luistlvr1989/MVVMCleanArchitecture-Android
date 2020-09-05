@@ -7,6 +7,7 @@ import com.globant.cleanarchitecture.domain.entities.TaskEntity
 import com.globant.cleanarchitecture.domain.repositories.TaskRepository
 import dagger.Reusable
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -16,13 +17,13 @@ class TaskRepositoryImpl @Inject constructor(
     private val localDataSource: TaskLocalDataSource,
     private val remoteDataSource: TaskRemoteDataSource
 ) : TaskRepository {
-    override fun getTasks(): Observable<List<TaskEntity>> = remoteDataSource.fetchTasks()
+    override fun getTasks(): Flowable<List<TaskEntity>> = remoteDataSource.fetchTasks()
         .flatMapCompletable { dtos ->
             val entities = dtos.map { dto -> dto.toEntity() }
             localDataSource.saveTasks(entities)
         }.andThen(loadTasks())
 
-    private fun loadTasks(): Observable<List<TaskEntity>> = localDataSource.loadTasks()
+    private fun loadTasks(): Flowable<List<TaskEntity>> = localDataSource.loadTasks()
         .map { tasks -> tasks.toEntities() }
 
     private fun List<Task>.toEntities() = map { task ->
@@ -33,7 +34,7 @@ class TaskRepositoryImpl @Inject constructor(
 }
 
 interface TaskLocalDataSource {
-    fun loadTasks(): Observable<List<Task>>
+    fun loadTasks(): Flowable<List<Task>>
 
     fun saveTasks(tasks: List<TaskEntity>): Completable
 

@@ -7,7 +7,7 @@ import java.util.*
 
 @Entity(tableName = "tasks")
 data class Task(
-    @ColumnInfo(name = "id") @PrimaryKey val id: Long? = null,
+    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long? = null,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "updated") val updated: Date,

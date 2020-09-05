@@ -7,6 +7,7 @@ import com.globant.cleanarchitecture.data.repositories.TaskLocalDataSource
 import com.globant.cleanarchitecture.domain.entities.TaskEntity
 import dagger.Reusable
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class TaskLocalDataSourceImpl @Inject constructor(
     private val taskDao: TaskDao
 ) : TaskLocalDataSource {
-    override fun loadTasks(): Observable<List<Task>> = taskDao.findAll()
+    override fun loadTasks(): Flowable<List<Task>> = taskDao.findAll()
 
     override fun saveTasks(tasks: List<TaskEntity>): Completable =
         taskDao.insertAll(tasks.toModels())

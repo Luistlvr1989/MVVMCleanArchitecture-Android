@@ -1,15 +1,19 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     / Modules /
     implementation project(':domain')
     / Rx /
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
-    implementation "android.arch.persistence.room:rxjava2:$rxRoom"
     / DI /
     implementation "com.google.dagger:dagger:$dagger"
+    / Database /
+    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-rxjava2:$room"
+    kapt "androidx.room:room-compiler:$room"
     / Networking /
     implementation "com.squareup.retrofit2:retrofit:$retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"

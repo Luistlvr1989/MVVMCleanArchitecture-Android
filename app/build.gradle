@@ -20,6 +20,10 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    defaultConfig {
+        buildConfigField "String",  "BASE_URL", "\"http://www.mocky.io\""
+    }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -70,7 +74,16 @@ dependencies {
     kapt "android.arch.lifecycle:common-java8:$lifecycle"
     / Rx /
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation "androidx.room:room-rxjava2:$room"
     / DI /
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
+    / Database /
+    implementation "androidx.room:room-runtime:$room"
+    kapt "androidx.room:room-compiler:$room"
+    / Networking /
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.1'
 }
