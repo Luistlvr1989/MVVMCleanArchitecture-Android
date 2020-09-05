@@ -2,23 +2,19 @@ package com.globant.cleanarchitecture.data.local.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import androidx.room.Transaction
 import com.globant.cleanarchitecture.data.local.models.Task
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Observable
 
 @Dao
 abstract class TaskDao : BaseDao<Task> {
     @Query("SELECT * FROM tasks ORDER BY created")
-    abstract fun findAll(): Flowable<List<Task>>
+    abstract suspend fun findAll(): List<Task>
 
     @Query("SELECT * FROM tasks WHERE id = :id")
-    abstract fun findById(id: Long): Observable<Task>
+    abstract suspend fun findById(id: Long): Task
 
     @Query("DELETE FROM tasks WHERE id = :id")
-    abstract fun deleteById(id: Long): Completable
+    abstract suspend fun deleteById(id: Long)
 
     @Query("DELETE FROM tasks")
-    abstract fun deleteAll()
+    abstract suspend fun deleteAll()
 }

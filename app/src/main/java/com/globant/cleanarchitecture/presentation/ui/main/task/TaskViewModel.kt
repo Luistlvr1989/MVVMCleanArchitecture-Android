@@ -2,10 +2,14 @@ package com.globant.cleanarchitecture.presentation.ui.main.task
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.globant.cleanarchitecture.R
 import com.globant.cleanarchitecture.domain.entities.TaskEntity
 import com.globant.cleanarchitecture.domain.usecases.SaveTaskUseCase
 import com.globant.cleanarchitecture.presentation.ui.base.BaseViewModel
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class TaskViewModel @Inject constructor(
@@ -20,14 +24,17 @@ class TaskViewModel @Inject constructor(
     private var mIsCompleted = MutableLiveData<Boolean>()
     var isCompleted: LiveData<Boolean> = mIsCompleted
 
-    fun saveTask(task: TaskEntity) {
-        saveTaskUseCase(task)
-            .doOnSubscribe { mIsLoading.value = true }
-            .doAfterTerminate { mIsLoading.value = false }
-            .subscribe({
-                mIsCompleted.value = true
-            }, {
-                mError.value = R.string.error_save
-            }).autoDispose()
+    fun saveTask(task: TaskEntity) = viewModelScope.launch(Main) {
+        mIsLoading.value = true
+        saveTaskUseCase(task).fold({
+            mIsLoading.value = false
+            mIsCompleted.setValue(true)
+        }, ::onError)
+    }
+
+    private fun onError(error: Exception) {
+        Timber.e(error)
+        mIsLoading.value = false
+        mError.value = R.string.error_save
     }
 }

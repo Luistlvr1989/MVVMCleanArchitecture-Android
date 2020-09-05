@@ -14,10 +14,15 @@ class TasksFragment : BaseFragment<TasksViewModel>(R.layout.fragment_main_tasks)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupObservers()
         prepareUI()
     }
 
     override fun createViewModel() = TasksViewModel::class.java
+
+    private fun setupObservers() = with(viewModel) {
+        isLoading.observe(viewLifecycleOwner, ::showProgress)
+    }
 
     private fun prepareUI() {
         bAddTask.setOnClickListener {
