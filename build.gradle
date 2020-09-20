@@ -64,6 +64,12 @@ subprojects {
             implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin"
             / DI /
             implementation "javax.inject:javax.inject:$javaxInject"
+            / Testing /
+            testImplementation "junit:junit:$junit"
+            testImplementation "org.mockito:mockito-core:$mockito"
+            testImplementation "org.mockito:mockito-inline:$mockito"
+            testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlin"
+            testImplementation "io.mockk:mockk:$mockk"
         }
     }
 }

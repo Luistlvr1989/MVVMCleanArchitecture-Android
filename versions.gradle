@@ -27,4 +27,12 @@ ext {
     hawk = "2.0.1"
     / Remote /
     retrofit = "2.8.1"
+    / Testing /
+    junit = "4.13"
+    mockito = "3.3.0"
+    mockitoKotlin = "2.2.0"
+    mockk = "1.9"
+    mockWebServer = '4.8.1'
+    espresso = '3.3.0'
+    cucumber = "4.8.4"
 }
